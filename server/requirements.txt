@@ -1,8 +1,0 @@
-mysql-connector-python
-requests
-flask
-flask-cors
-lxml
-pywin32
-python-pptx
-exif

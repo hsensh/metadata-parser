@@ -4,7 +4,7 @@
 1. Python 3, Node, and MySQL should be installed on the system and put in the environment variables
 2. Open CMD on the root directory
 3. Create a MySQL Schema called testdb
-4. Enter the command: mysql -u<username> -p<password> testdb < Dump.sql
+4. Enter the command: mysql -u(username) -p(password) testdb < Dump.sql
 5. Enter the command: cd server
 6. Enter the command: python -m pip install -r requirements.txt
 7. Enter the command: python parser.py
