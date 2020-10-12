@@ -16,3 +16,11 @@
 ## Description
 This project uses MySQL, Python Flask, and ReactJS to extract the metadata from links, powerpoints and images and put them in tables to display, the URLs are inserted through and API endpoint, the Powerpoints are inserted into the powerpoints directory and the images are inserted in the images directory inside the server directory.
 It uses the library lxml for the URL parsing, the libraries win32com and python-pptx for the powerpoint parsing, and the library exif for the image parsing. API calls are made through the Javscript axios library.
+
+## Screenshots
+### URL Metadata
+![alt text](url-metadata.PNG "URL Metadata Table")
+### Powerpoint Metadata
+![alt text](powerpoint-metadata.PNG "Powerpoint Metadata Table")
+### Image Metadata
+![alt text](image-metadata.PNG "Image Metadata Table")
