@@ -19,8 +19,8 @@ It uses the library lxml for the URL parsing, the libraries win32com and python-
 
 ## Screenshots
 ### URL Metadata
-![alt text]([url-metadata.PNG](https://github.com/hsensh/metadata-parser/blob/master/url-metadata.PNG) "URL Metadata Table")
+![alt text](url-metadata.PNG "URL Metadata Table")
 ### Powerpoint Metadata
-![alt text]([powerpoint-metadata.PNG](https://github.com/hsensh/metadata-parser/blob/master/powerpoint-metadata.PNG) "Powerpoint Metadata Table")
+![alt text](powerpoint-metadata.PNG "Powerpoint Metadata Table")
 ### Image Metadata
-![alt text]([image-metadata.PNG](https://github.com/hsensh/metadata-parser/blob/master/image-metadata.PNG) "Image Metadata Table")
+![alt text](image-metadata.PNG "Image Metadata Table")
