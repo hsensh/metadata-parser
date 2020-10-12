@@ -58,11 +58,21 @@ def get_images():
     for image_name in image_names:
         with open(f"static/images/{image_name}", "rb") as image_file:
             image = Image(image_file)
+        for val in dir(image):
+            print(val)
         response.append(
             {
                 'path': f'static/images/{image_name}',
-                'model': image.model if image.has_exif else None,
-                'lens': image.lens_model if image.has_exif else None
+                'model': image.get('model', None) if image.has_exif else None,
+                'lens': image.get('lens_model', None) if image.has_exif else None,
+                'taken': image.get('datetime_original', None) if image.has_exif else None,
+                'focalLength': image.get('focal_length', None) if image.has_exif else None,
+                'exposureMode': image.get('exposure_mode', None) if image.has_exif else None,
+                'apertureValue': image.get('aperture_value', None) if image.has_exif else None,
+                'shutterSpeedValue': image.get('shutter_speed_value', None) if image.has_exif else None,
+                'sceneCaptureType': image.get('scene_capture_type', None) if image.has_exif else None,
+                'software': image.get('software', None) if image.has_exif else None,
+                'colorSpace': image.get('color_space', None) if image.has_exif else None,
             }
         )
     return app.response_class(mimetype='application/json', response=json.dumps(response))

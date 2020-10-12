@@ -2,11 +2,15 @@ import React, { useEffect } from "react";
 import "./App.css";
 import MaterialTable from "material-table";
 import axios from "axios";
+import Modal from "./Modal";
 
 function App() {
   const [htmlMetadata, setHtmlMetadata] = React.useState([]);
   const [powerpointMetadata, setPowerpointMetadata] = React.useState([]);
   const [images, setImages] = React.useState([]);
+  const [currentImage, setCurrentImage] = React.useState({});
+  const [open, setOpen] = React.useState(false);
+  const closeModal = () => setOpen(false);
 
   const getValues = () => {
     axios
@@ -22,12 +26,13 @@ function App() {
         setPowerpointMetadata(response.data);
       })
       .catch((err) => console.log(err));
-    
-    axios.get("http://localhost:5000/get_images")
-      .then(response => {
+
+    axios
+      .get("http://localhost:5000/get_images")
+      .then((response) => {
         setImages(response.data);
       })
-    .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -63,7 +68,7 @@ function App() {
                       background: "lightblue",
                       color: "white",
                       borderRadius: "10px",
-                      width: "500px"
+                      width: "500px",
                     }}
                   >
                     {element.key}
@@ -113,56 +118,95 @@ function App() {
   ];
   return (
     <div className="App">
+      <Modal image={currentImage} open={open} closeModal={closeModal}></Modal>
       <div
         style={{
-          width: "92%",
-          margin: "20px 1%",
+          width: "98%",
+          marginLeft: "1%",
+          marginRight: "1%",
           background: "white",
           borderRadius: "5px",
           color: "black",
+          padding: "2%",
           boxShadow: "4px 4px 10px #888",
-          minHeight: "100px",
-          padding: "3%",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center"
         }}
       >
-        {images &&
-          images.map((image) => (
-            <div
-              key={image.path}
-              style={{
-                width: "20%",
-                boxShadow: "4px 4px 10px #888",
-                margin: "1%",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: "2%",
-                borderRadius: "3px"
-              }}
-            >
-              <div style={{ height: "60%", width: "100%", background: "black", display: "flex", justifyContent: "center", alignItems: "center", overflow: "hidden" }}>
-                <img
-                src={`http://localhost:5000/${image.path}`}
-                style={{ height: "200px", maxWidth: "100%" }}
-                />
+        <div
+          style={{
+            textAlign: "left",
+            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+            fontSize: "1.25rem",
+          }}
+        >
+          Image Metadata
+        </div>
+        <div
+          style={{
+            minHeight: "100px",
+            padding: "3%",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {images &&
+            images.map((image) => (
+              <div
+                onClick={() => {
+                  setCurrentImage(image);
+                  setOpen(true);
+                }}
+                key={image.path}
+                style={{
+                  width: "20%",
+                  boxShadow: "4px 4px 10px #888",
+                  margin: "1%",
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "2%",
+                  borderRadius: "3px",
+                }}
+              >
+                <div
+                  style={{
+                    height: "60%",
+                    width: "100%",
+                    background: "black",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={`http://localhost:5000/${image.path}`}
+                    style={{ height: "200px", maxWidth: "100%" }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    textAlign: "left",
+                    margin: "0 auto",
+                    height: "35%",
+                    width: "100%",
+                    marginTop: "4%",
+                  }}
+                >
+                  <strong style={{ paddingRight: "10px" }}>Camera</strong>
+                  <span style={{ display: "block" }}>
+                    {image.model || "Not Specified"}
+                  </span>
+                  <strong style={{ paddingRight: "10px" }}>Lens</strong>
+                  <span style={{ display: "block" }}>
+                    {image.lens || "Not Specified"}
+                  </span>
+                </div>
               </div>
-              
-              <div style={{textAlign: "left", margin: "0 auto", height: "35%", width: "100%", marginTop: "4%"}}>
-                <strong style={{paddingRight: "10px"}}>Camera</strong>
-                <span style={{ display: 'block' }}>
-                  {image.model || 'Not Specified'}
-                </span>
-               <strong style={{paddingRight: "10px"}}>Lens</strong>
-                <span style={{display: 'block'}}>
-                  {image.lens || 'Not Specified'}
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
       <MaterialTable
         title="URL Metadata"
